@@ -3,133 +3,258 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lishan Foundation | Open Systems for Public Good</title>
+  <meta name="theme-color" content="#f6f5ef">
+  <meta name="description" content="OpenHuman is a community-first marketplace concept connecting independent artisans and their handmade work with curious customers around the world.">
+  <title>OpenHuman — Good things, made by hand</title>
   <style>
     :root {
-      --bg: #0a0c10;
-      --card-bg: #12161f;
-      --border: #232936;
-      --text: #e6edf3;
-      --text-muted: #8b949e;
-      --accent: #58a6ff;
-      --accent-green: #3fb950;
+      color-scheme: light;
+      --paper: #f6f5ef;
+      --surface: #fffefa;
+      --ink: #20352d;
+      --muted: #68756c;
+      --green: #355d49;
+      --green-dark: #244333;
+      --lime: #dce8bd;
+      --line: #e6e5dc;
+      --terracotta: #c76f4d;
+      --serif: Georgia, "Times New Roman", serif;
+      --sans: "Avenir Next", Avenir, "Segoe UI", sans-serif;
+      --shadow: 0 18px 50px rgba(34, 52, 43, .09);
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      background-color: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-      padding: 0 1.5rem;
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--sans); line-height: 1.55; }
+    button, input, select { font: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    a { color: inherit; }
+    button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible { outline: 3px solid #9ab779; outline-offset: 3px; }
+    .announcement { background: var(--green-dark); color: #f6f5ef; text-align: center; padding: 9px 16px; font-size: .78rem; letter-spacing: .04em; }
+    .announcement strong { color: #dce8bd; font-weight: 600; }
+    .shell { max-width: 1280px; margin: auto; padding: 0 34px; }
+    .nav { min-height: 78px; display: flex; align-items: center; justify-content: space-between; gap: 24px; border-bottom: 1px solid var(--line); }
+    .brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 750; letter-spacing: -.04em; font-size: 1.24rem; white-space: nowrap; }
+    .brand-mark { width: 31px; height: 31px; border-radius: 50% 50% 48% 12%; display: grid; place-items: center; color: white; background: var(--green); transform: rotate(-12deg); }
+    .brand-mark svg { transform: rotate(12deg); }
+    .nav-links { display: flex; align-items: center; gap: 30px; color: #4f6257; font-size: .9rem; }
+    .nav-links a { text-decoration: none; }
+    .nav-links a:hover { color: var(--terracotta); }
+    .nav-actions { display: flex; align-items: center; gap: 10px; }
+    .icon-button { min-width: 42px; height: 42px; border: 1px solid var(--line); background: transparent; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; color: var(--ink); position: relative; }
+    .icon-button:hover { background: white; }
+    .cart-count { position: absolute; top: -4px; right: -3px; width: 18px; height: 18px; border-radius: 50%; background: var(--terracotta); color: white; font-size: .67rem; display: grid; place-items: center; }
+    .button { border: 0; display: inline-flex; align-items: center; justify-content: center; gap: 9px; border-radius: 999px; padding: 13px 20px; font-weight: 650; text-decoration: none; cursor: pointer; transition: transform .18s, background .18s; }
+    .button:hover { transform: translateY(-2px); }
+    .button-primary { background: var(--green); color: white; }
+    .button-primary:hover { background: var(--green-dark); }
+    .button-quiet { background: white; color: var(--ink); border: 1px solid var(--line); }
+    .button-small { padding: 10px 15px; font-size: .85rem; }
+    .hero { display: grid; grid-template-columns: 1fr 1.02fr; align-items: center; gap: 55px; padding: 54px 0 70px; }
+    .eyebrow { color: var(--green); font-size: .76rem; text-transform: uppercase; letter-spacing: .14em; font-weight: 750; }
+    h1, h2, h3, p { margin-top: 0; }
+    h1 { font-family: var(--serif); font-size: clamp(3rem, 5.2vw, 5.25rem); letter-spacing: -.055em; line-height: .99; font-weight: 500; margin: 19px 0 20px; max-width: 600px; }
+    h1 em { color: var(--terracotta); font-weight: 500; }
+    .hero-copy { max-width: 510px; font-size: 1.08rem; color: var(--muted); margin-bottom: 26px; }
+    .hero-buttons { display: flex; flex-wrap: wrap; gap: 11px; }
+    .hero-note { display: flex; align-items: center; gap: 10px; margin-top: 27px; color: var(--muted); font-size: .82rem; }
+    .avatar-stack { display: flex; padding-left: 4px; }
+    .avatar-stack span { width: 27px; height: 27px; border: 2px solid var(--paper); margin-left: -5px; border-radius: 50%; background: #d5a28a; }
+    .avatar-stack span:nth-child(2) { background: #8caa88; }.avatar-stack span:nth-child(3) { background: #e7c68a; }.avatar-stack span:nth-child(4) { background: #b7a5c7; }
+    .hero-art { min-height: 440px; position: relative; border-radius: 48% 48% 14px 14px; overflow: hidden; background: #d9dfc9; }
+    .hero-art img { width: 100%; height: 100%; min-height: 440px; object-fit: cover; display: block; }
+    .hero-sticker { position: absolute; bottom: 23px; left: 22px; background: var(--surface); border-radius: 14px; padding: 13px 17px; box-shadow: var(--shadow); font-size: .84rem; }
+    .hero-sticker strong { display: block; font-family: var(--serif); font-size: 1.16rem; font-weight: 500; }
+    .hero-sticker span { color: var(--muted); font-size: .75rem; }
+    .hero-sun { position: absolute; width: 88px; height: 88px; right: 21px; top: 21px; background: var(--lime); border-radius: 50%; display: grid; place-items: center; color: var(--green); font-family: var(--serif); font-size: 1.5rem; transform: rotate(10deg); }
+    .trust-row { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); display: grid; grid-template-columns: repeat(3, 1fr); padding: 22px 0; text-align: center; color: var(--muted); font-size: .85rem; }
+    .trust-row strong { color: var(--ink); font-weight: 650; }
+    .section { padding: 78px 0; }
+    .section-heading { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-bottom: 27px; }
+    h2 { font-family: var(--serif); font-size: clamp(2.1rem, 3.5vw, 3rem); line-height: 1.08; letter-spacing: -.035em; font-weight: 500; margin: 9px 0 0; }
+    .section-intro { color: var(--muted); max-width: 430px; margin: 0; font-size: .93rem; }
+    .category-row { display: flex; gap: 9px; flex-wrap: wrap; margin-bottom: 28px; }
+    .chip { border: 1px solid var(--line); color: #506157; padding: 9px 15px; border-radius: 999px; background: transparent; cursor: pointer; font-size: .84rem; }
+    .chip:hover, .chip.active { background: var(--green); color: white; border-color: var(--green); }
+    .market-tools { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 22px; }
+    .search-wrap { position: relative; max-width: 345px; width: 100%; }
+    .search-wrap svg { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--muted); }
+    .search-wrap input { width: 100%; border: 1px solid var(--line); background: var(--surface); border-radius: 999px; padding: 12px 15px 12px 42px; color: var(--ink); }
+    .results-note { color: var(--muted); font-size: .85rem; }
+    .product-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; }
+    .product-card { min-width: 0; }
+    .product-image { position: relative; overflow: hidden; border-radius: 13px; aspect-ratio: .91; background: #e3e1d5; }
+    .product-image img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .4s; }
+    .product-card:hover .product-image img { transform: scale(1.045); }
+    .product-label { position: absolute; left: 11px; top: 11px; background: rgba(255,254,250,.92); padding: 6px 10px; border-radius: 999px; font-size: .7rem; font-weight: 650; }
+    .favorite { position: absolute; right: 10px; top: 10px; width: 36px; height: 36px; border-radius: 50%; border: 0; background: rgba(255,254,250,.94); cursor: pointer; color: var(--ink); display: grid; place-items: center; }
+    .favorite[aria-pressed="true"] { color: #b84d45; }
+    .product-meta { display: flex; justify-content: space-between; gap: 12px; margin-top: 13px; align-items: baseline; }
+    .product-meta h3 { font-family: var(--serif); font-size: 1.14rem; font-weight: 500; margin: 0; }
+    .price { font-size: .88rem; font-weight: 700; white-space: nowrap; }
+    .maker { margin: 4px 0 10px; color: var(--muted); font-size: .8rem; }
+    .maker a { text-underline-offset: 3px; }
+    .add-button { border: 0; border-bottom: 1px solid #9daa9d; padding: 2px 0 4px; background: transparent; color: var(--green); cursor: pointer; font-size: .81rem; font-weight: 700; }
+    .add-button:hover { color: var(--terracotta); }
+    .empty-state { grid-column: 1/-1; text-align: center; color: var(--muted); padding: 45px 10px; }
+    .story-band { background: #e7ebdc; border-radius: 20px; display: grid; grid-template-columns: .92fr 1.08fr; overflow: hidden; }
+    .story-image { min-height: 390px; }
+    .story-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .story-copy { padding: clamp(30px, 5vw, 66px); align-self: center; }
+    .story-copy h2 { max-width: 450px; margin: 13px 0 18px; }
+    .story-copy p { color: #5e6b60; max-width: 440px; }
+    .maker-line { display: flex; align-items: center; gap: 11px; margin: 23px 0 27px; font-size: .83rem; }
+    .maker-dot { width: 39px; height: 39px; border-radius: 50%; background: #c98161; display: grid; place-items: center; color: white; font-family: var(--serif); }
+    .guides { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 27px; }
+    .guide-card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 24px; }
+    .guide-number { color: var(--terracotta); font-family: var(--serif); font-size: 1.3rem; }
+    .guide-card h3 { font-family: var(--serif); font-size: 1.3rem; font-weight: 500; margin: 12px 0 8px; }
+    .guide-card p { color: var(--muted); font-size: .87rem; margin-bottom: 16px; }
+    .guide-card a { color: var(--green); font-size: .83rem; font-weight: 700; text-underline-offset: 4px; }
+    .seller-cta { margin: 12px 0 78px; background: var(--green-dark); color: white; padding: clamp(30px, 5vw, 60px); border-radius: 20px; display: flex; justify-content: space-between; align-items: center; gap: 30px; }
+    .seller-cta .eyebrow { color: #dce8bd; }
+    .seller-cta h2 { max-width: 590px; margin: 10px 0 13px; }
+    .seller-cta p { max-width: 570px; color: #d0d9d1; margin: 0; font-size: .92rem; }
+    .seller-cta .button { background: #e2edc5; color: var(--green-dark); white-space: nowrap; }
+    footer { border-top: 1px solid var(--line); padding: 27px 0 35px; display: flex; justify-content: space-between; gap: 20px; color: var(--muted); font-size: .79rem; }
+    footer a { text-decoration: none; }
+    .footer-links { display: flex; gap: 20px; }
+    .overlay { position: fixed; inset: 0; z-index: 20; background: rgba(21, 33, 27, .42); display: none; justify-content: flex-end; }
+    .overlay.open { display: flex; }
+    .drawer { width: min(440px, 100%); background: var(--surface); padding: 26px; height: 100%; overflow-y: auto; box-shadow: var(--shadow); }
+    .drawer-head { display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--line); padding-bottom: 17px; }
+    .drawer-head h2 { font-size: 1.9rem; margin: 0; }
+    .drawer-items { padding: 8px 0; }
+    .cart-item { display: flex; gap: 13px; padding: 15px 0; border-bottom: 1px solid var(--line); }
+    .cart-item img { width: 66px; height: 66px; border-radius: 9px; object-fit: cover; }
+    .cart-item-info { flex: 1; font-size: .88rem; }
+    .cart-item-info small { display: block; color: var(--muted); margin-top: 4px; }
+    .cart-item button { background: none; border: 0; color: var(--terracotta); cursor: pointer; font-size: .78rem; }
+    .cart-total { border-top: 1px solid var(--line); padding-top: 17px; display: flex; justify-content: space-between; font-weight: 700; }
+    .cart-disclaimer { font-size: .78rem; color: var(--muted); background: #f1f2eb; padding: 13px; border-radius: 9px; margin: 18px 0; }
+    .drawer-empty { text-align: center; color: var(--muted); padding: 48px 10px; }
+    .modal-wrap { position: fixed; inset: 0; z-index: 30; background: rgba(21, 33, 27, .5); display: none; place-items: center; padding: 20px; }
+    .modal-wrap.open { display: grid; }
+    .modal { width: min(520px, 100%); max-height: 90vh; overflow-y: auto; background: var(--surface); border-radius: 18px; padding: 28px; box-shadow: var(--shadow); }
+    .modal-top { display: flex; justify-content: space-between; gap: 16px; align-items: start; }
+    .modal-top h2 { font-size: 2rem; margin: 7px 0 15px; }
+    .modal p { color: var(--muted); font-size: .9rem; }
+    .form-field { display: block; margin: 15px 0; font-size: .83rem; font-weight: 650; }
+    .form-field input, .form-field select { display: block; width: 100%; margin-top: 7px; padding: 12px; border: 1px solid var(--line); border-radius: 9px; background: white; color: var(--ink); }
+    .prototype-note { font-size: .76rem !important; background: #f1f2eb; padding: 11px; border-radius: 8px; }
+    .toast { position: fixed; z-index: 50; bottom: 22px; left: 50%; transform: translate(-50%, 20px); opacity: 0; pointer-events: none; background: var(--green-dark); color: white; padding: 12px 18px; border-radius: 999px; font-size: .86rem; transition: .2s; box-shadow: var(--shadow); }
+    .toast.show { transform: translate(-50%, 0); opacity: 1; }
+    @media (max-width: 950px) { .nav-links { gap: 16px; }.product-grid { grid-template-columns: repeat(2, 1fr); }.hero { gap: 30px; }.hero-art, .hero-art img { min-height: 380px; } }
+    @media (max-width: 680px) {
+      .shell { padding: 0 19px; }.nav { min-height: 67px; }.nav-links { display: none; }.nav-actions .button { display: none; }
+      .hero { grid-template-columns: 1fr; gap: 31px; padding: 43px 0 42px; }.hero-art, .hero-art img { min-height: 320px; }.hero-art { border-radius: 45% 45% 12px 12px; }
+      .trust-row { grid-template-columns: 1fr; gap: 9px; text-align: left; }.section { padding: 57px 0; }.section-heading { display: block; }.section-intro { margin-top: 14px; }.market-tools { align-items: flex-start; flex-direction: column; }
+      .product-grid { gap: 22px 13px; }.product-meta { display: block; }.price { display: block; margin-top: 3px; }.product-meta h3 { font-size: 1.03rem; }
+      .story-band { grid-template-columns: 1fr; }.story-image { min-height: 260px; max-height: 300px; }.story-copy { padding: 30px 24px; }.guides { grid-template-columns: 1fr; }.seller-cta { align-items: flex-start; flex-direction: column; margin-bottom: 55px; }
+      footer { flex-direction: column; }.footer-links { flex-wrap: wrap; }
     }
-    .container { max-width: 860px; margin: 0 auto; padding: 4rem 0; }
-    header { margin-bottom: 3.5rem; }
-    .badge {
-      display: inline-block;
-      font-size: 0.75rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--accent);
-      background: rgba(88, 166, 255, 0.1);
-      border: 1px solid rgba(88, 166, 255, 0.2);
-      padding: 0.25rem 0.75rem;
-      border-radius: 999px;
-      margin-bottom: 1rem;
-    }
-    h1 { font-size: 2.75rem; font-weight: 700; letter-spacing: -0.03em; margin-bottom: 1rem; }
-    .subtitle { font-size: 1.2rem; color: var(--text-muted); max-width: 640px; }
-    
-    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin: 3rem 0; }
-    @media (max-width: 640px) { .grid { grid-template-columns: 1fr; } }
-    
-    .card {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 1.75rem;
-      transition: border-color 0.2s ease;
-    }
-    .card:hover { border-color: var(--accent); }
-    .card-tag { font-size: 0.8rem; font-weight: 600; color: var(--accent-green); margin-bottom: 0.5rem; }
-    .card h2 { font-size: 1.35rem; margin-bottom: 0.75rem; }
-    .card p { font-size: 0.95rem; color: var(--text-muted); margin-bottom: 1.25rem; }
-    
-    .links a {
-      color: var(--text);
-      text-decoration: none;
-      font-weight: 500;
-      font-size: 0.9rem;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-    }
-    .links a:hover { color: var(--accent); }
-    
-    footer {
-      margin-top: 4rem;
-      padding-top: 2rem;
-      border-top: 1px solid var(--border);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-    .btn {
-      display: inline-block;
-      background: #21262d;
-      color: var(--text);
-      border: 1px solid var(--border);
-      padding: 0.5rem 1rem;
-      border-radius: 6px;
-      text-decoration: none;
-      font-size: 0.9rem;
-      font-weight: 500;
-    }
-    .btn:hover { background: #30363d; }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; } }
   </style>
 </head>
 <body>
-  <div class="container">
-    <header>
-      <div class="badge">Open Source • Non-Profit Initiative</div>
-      <h1>Lishan Foundation</h1>
-      <p class="subtitle">
-        An independent global research and open-source collective engineering modular technology, decentralized systems, and tools for the public good.
-      </p>
-    </header>
-
-    <div class="grid">
-      <div class="card">
-        <div class="card-tag">Track 01</div>
-        <h2>OpenHuman</h2>
-        <p>Developing open interfaces, assistive computing, privacy-first communication tools, and software that directly amplifies human capability.</p>
-        <div class="links">
-          <a href="https://github.com/lishan-foundation" target="_blank">Explore Repositories &rarr;</a>
+  <div class="announcement"><strong>A marketplace with people at its heart.</strong> A first look at OpenHuman — built for makers, shaped by community.</div>
+  <div class="shell">
+    <nav class="nav" aria-label="Main navigation">
+      <a class="brand" href="#top" aria-label="OpenHuman home"><span class="brand-mark" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M12 20s-7-4.2-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.8-7 10-7 10Z" stroke="currentColor" stroke-width="1.8"/><path d="M8 13c2-2 5-2 8 0" stroke="currentColor" stroke-width="1.5"/></svg></span>openhuman</a>
+      <div class="nav-links"><a href="#market">Discover</a><a href="#makers">Our makers</a><a href="#guides">Maker guides</a></div>
+      <div class="nav-actions"><button class="icon-button" id="cart-open" aria-label="Open shopping bag" title="Shopping bag"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 8h14l1 12H4L5 8Z" stroke="currentColor" stroke-width="1.6"/><path d="M9 9V6a3 3 0 0 1 6 0v3" stroke="currentColor" stroke-width="1.6"/></svg><span class="cart-count" id="cart-count">0</span></button><button class="button button-primary button-small" data-open-seller>Share your craft <span aria-hidden="true">↗</span></button></div>
+    </nav>
+    <main id="top">
+      <section class="hero" aria-labelledby="hero-title">
+        <div>
+          <div class="eyebrow">A world of work, made by hand</div>
+          <h1 id="hero-title">Good things.<br>Made by <em>people.</em></h1>
+          <p class="hero-copy">Meet independent makers, find objects with a story, and support the hands and traditions behind every piece.</p>
+          <div class="hero-buttons"><a class="button button-primary" href="#market">Explore the marketplace <span aria-hidden="true">↓</span></a><button class="button button-quiet" data-open-seller>I'm a maker</button></div>
+          <div class="hero-note"><span class="avatar-stack" aria-hidden="true"><span></span><span></span><span></span><span></span></span><span>Made with care. Shared across borders.</span></div>
         </div>
-      </div>
-
-      <div class="card">
-        <div class="card-tag">Track 02</div>
-        <h2>OpenNature</h2>
-        <p>Building ecological data pipelines, bio-inspired algorithms, open environmental monitors, and resource sustainability trackers.</p>
-        <div class="links">
-          <a href="https://github.com/lishan-foundation" target="_blank">Explore Repositories &rarr;</a>
+        <div class="hero-art">
+          <img src="https://images.unsplash.com/photo-1493106641515-6b5631de4bb9?auto=format&fit=crop&w=1200&q=85" alt="Handmade ceramic vessels arranged on a warm studio shelf" fetchpriority="high">
+          <div class="hero-sun" aria-hidden="true">made<br>with care</div>
+          <div class="hero-sticker"><strong>Every piece has a person behind it.</strong><span>Discover the maker, not just the object.</span></div>
         </div>
-      </div>
-    </div>
-
-    <footer>
-      <div>
-        Built with no paywalls. All projects licensed under MIT or Apache 2.0.
-      </div>
-      <div>
-        <a class="btn" href="https://github.com/lishan-foundation" target="_blank">GitHub Organization</a>
-      </div>
-    </footer>
+      </section>
+      <div class="trust-row" aria-label="Marketplace values"><div><strong>Independent makers</strong> &nbsp;come first</div><div><strong>Thoughtful craft</strong> &nbsp;over mass production</div><div><strong>Open to the world</strong> &nbsp;by design</div></div>
+      <section class="section" id="market" aria-labelledby="market-title">
+        <div class="section-heading"><div><div class="eyebrow">Find your next favorite</div><h2 id="market-title">Made with a little more meaning.</h2></div><p class="section-intro">Browse a small collection of independent craft. Each listing here is a sample, celebrating the kinds of work OpenHuman hopes to help makers share.</p></div>
+        <div class="category-row" role="group" aria-label="Filter by craft category"><button class="chip active" data-category="All">Everything</button><button class="chip" data-category="Ceramics">Ceramics</button><button class="chip" data-category="Textiles">Textiles</button><button class="chip" data-category="Home">Home &amp; living</button><button class="chip" data-category="Jewelry">Jewelry</button></div>
+        <div class="market-tools"><label class="search-wrap"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8" stroke="currentColor" stroke-width="1.7"/><path d="m16 16 4 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg><input type="search" id="search" placeholder="Search handmade things…" aria-label="Search products"></label><span class="results-note" id="results-note" aria-live="polite"></span></div>
+        <div class="product-grid" id="product-grid" aria-live="polite"></div>
+      </section>
+      <section class="section" id="makers" aria-labelledby="maker-title">
+        <div class="story-band"><div class="story-image"><img src="https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?auto=format&fit=crop&w=1100&q=85" alt="Artisan shaping a handmade ceramic piece at a pottery wheel" loading="lazy"></div><div class="story-copy"><div class="eyebrow">Behind the work</div><h2 id="maker-title">A slower way to make. A more human way to find.</h2><p>OpenHuman is a marketplace idea grounded in a simple belief: the people who make our everyday objects deserve to be seen, heard, and fairly supported. Get to know the hands, places, and practices behind the craft.</p><div class="maker-line"><span class="maker-dot" aria-hidden="true">M</span><span><strong>Made by people, not a factory.</strong><br><span style="color:var(--muted)">A more personal kind of discovery.</span></span></div><a class="button button-primary button-small" href="#market">Meet the makers <span aria-hidden="true">→</span></a></div></div>
+      </section>
+      <section class="section" id="guides" aria-labelledby="guide-title"><div class="section-heading"><div><div class="eyebrow">A useful place to begin</div><h2 id="guide-title">Your craft deserves a wider world.</h2></div><p class="section-intro">Practical starting points for makers ready to present their work online and reach customers beyond their neighborhood.</p></div>
+        <div class="guides"><article class="guide-card"><span class="guide-number">01 / Tell your story</span><h3>Build a listing people remember</h3><p>Photograph in natural light, describe materials clearly, and share what makes your process yours.</p><a href="https://www.etsy.com/seller-handbook/article/22504027167" target="_blank" rel="noopener noreferrer">Read the photography guide ↗</a></article><article class="guide-card"><span class="guide-number">02 / Price with care</span><h3>Make the numbers work for you</h3><p>Account for materials, time, packaging, platform costs, and the value of your experience.</p><a href="https://www.etsy.com/seller-handbook/article/1106022743419" target="_blank" rel="noopener noreferrer">Explore pricing basics ↗</a></article><article class="guide-card"><span class="guide-number">03 / Ship thoughtfully</span><h3>Prepare for a longer journey</h3><p>Choose sturdy, right-sized packaging and check your local postal rules before offering international delivery.</p><a href="https://www.etsy.com/seller-handbook" target="_blank" rel="noopener noreferrer">Browse seller resources ↗</a></article></div>
+      </section>
+      <section class="seller-cta" aria-labelledby="seller-title"><div><div class="eyebrow">For the people who make</div><h2 id="seller-title">Bring your work into the world.</h2><p>We’re shaping an open marketplace where independent artisans can introduce their craft to customers everywhere. Start with your story; we’ll keep building the tools.</p></div><button class="button" data-open-seller>Join the maker interest list <span aria-hidden="true">→</span></button></section>
+    </main>
+    <footer><span>© 2026 OpenHuman · A marketplace concept by Lishan Foundation.</span><div class="footer-links"><a href="#guides">Maker guides</a><a href="https://github.com/LiShan-Foundation" target="_blank" rel="noopener noreferrer">Open source &amp; community ↗</a></div></footer>
   </div>
+  <div class="overlay" id="cart-overlay" role="dialog" aria-modal="true" aria-labelledby="cart-title"><aside class="drawer"><div class="drawer-head"><h2 id="cart-title">Your bag</h2><button class="icon-button" id="cart-close" aria-label="Close shopping bag">✕</button></div><div class="drawer-items" id="cart-items"></div><div id="cart-summary"></div></aside></div>
+  <div class="modal-wrap" id="seller-modal" role="dialog" aria-modal="true" aria-labelledby="seller-modal-title"><div class="modal"><div class="modal-top"><div><div class="eyebrow">Maker community</div><h2 id="seller-modal-title">Let’s hear your story.</h2></div><button class="icon-button" id="seller-close" aria-label="Close form">✕</button></div><p>Tell us a little about your craft. This early preview does not collect or transmit submissions yet.</p><form id="seller-form"><label class="form-field">Your name<input name="name" autocomplete="name" required placeholder="How should we address you?"></label><label class="form-field">Email address<input name="email" type="email" autocomplete="email" required placeholder="you@example.com"></label><label class="form-field">What do you make?<select name="craft" required><option value="">Choose a craft</option><option>Ceramics</option><option>Textiles</option><option>Jewelry</option><option>Woodwork</option><option>Other handmade craft</option></select></label><p class="prototype-note">Prototype note: no information is sent or saved. The interest-list form will be connected when the marketplace has a secure backend.</p><button class="button button-primary" type="submit">Save my interest locally</button></form></div></div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script>
+    const products = [
+      { id: 1, title: 'Sunday stoneware mug', maker: 'Mina · Kyoto, Japan', category: 'Ceramics', price: 38, label: 'Small batch', image: 'https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?auto=format&fit=crop&w=700&q=80', alt: 'Handmade ceramic cup in soft natural light' },
+      { id: 2, title: 'Woven day-bag', maker: 'Amara · Accra, Ghana', category: 'Textiles', price: 74, label: 'Handwoven', image: 'https://images.unsplash.com/photo-1590874103328-eac38a683ce7?auto=format&fit=crop&w=700&q=80', alt: 'Thoughtfully crafted woven everyday bag' },
+      { id: 3, title: 'Terra incense holder', maker: 'Leo · Oaxaca, Mexico', category: 'Home', price: 29, label: 'Natural clay', image: 'https://images.unsplash.com/photo-1603006905003-be475563bc59?auto=format&fit=crop&w=700&q=80', alt: 'Earth-toned handmade object for the home' },
+      { id: 4, title: 'Little sun earrings', maker: 'Nia · Brighton, UK', category: 'Jewelry', price: 46, label: 'Made to order', image: 'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=700&q=80', alt: 'Artisan gold-toned earrings' },
+      { id: 5, title: 'Quiet morning bowl', maker: 'Mina · Kyoto, Japan', category: 'Ceramics', price: 52, label: 'One of a kind', image: 'https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?auto=format&fit=crop&w=700&q=80', alt: 'Handmade ceramic bowl with an organic glaze' },
+      { id: 6, title: 'Loom-woven table runner', maker: 'Amara · Accra, Ghana', category: 'Textiles', price: 88, label: 'Handwoven', image: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=700&q=80', alt: 'Natural textile styling in a calm home' },
+      { id: 7, title: 'Woodland candle set', maker: 'Ana · Porto, Portugal', category: 'Home', price: 34, label: 'Plant-based wax', image: 'https://images.unsplash.com/photo-1602874801007-bd458bb1b8b6?auto=format&fit=crop&w=700&q=80', alt: 'Hand-poured candle in a simple glass vessel' },
+      { id: 8, title: 'River pebble pendant', maker: 'Nia · Brighton, UK', category: 'Jewelry', price: 58, label: 'Made to order', image: 'https://images.unsplash.com/photo-1611652022419-a9419f74343d?auto=format&fit=crop&w=700&q=80', alt: 'Minimal handmade pendant jewelry' }
+    ];
+    const grid = document.getElementById('product-grid');
+    const search = document.getElementById('search');
+    const resultsNote = document.getElementById('results-note');
+    let category = 'All';
+    let cart = [];
+    try { cart = JSON.parse(localStorage.getItem('openhuman-cart') || '[]'); } catch { cart = []; }
+    function renderProducts() {
+      const query = search.value.trim().toLowerCase();
+      const visible = products.filter(p => (category === 'All' || p.category === category) && `${p.title} ${p.maker} ${p.category}`.toLowerCase().includes(query));
+      resultsNote.textContent = `${visible.length} ${visible.length === 1 ? 'piece' : 'pieces'} to explore`;
+      if (!visible.length) { grid.innerHTML = '<div class="empty-state">No pieces match that search yet. Try another word or category.</div>'; return; }
+      grid.innerHTML = visible.map(p => `<article class="product-card"><div class="product-image"><img src="${p.image}" alt="${p.alt}" loading="lazy"><span class="product-label">${p.label}</span><button class="favorite" aria-label="Save ${p.title} to favorites" aria-pressed="false" data-favorite="${p.id}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20.8 8.8c0 5.1-8.8 10-8.8 10s-8.8-4.9-8.8-10a4.8 4.8 0 0 1 8.8-2.6 4.8 4.8 0 0 1 8.8 2.6Z" stroke="currentColor" stroke-width="1.6"/></svg></button></div><div class="product-meta"><h3>${p.title}</h3><span class="price">$${p.price.toFixed(2)}</span></div><p class="maker">by <a href="#makers">${p.maker}</a></p><button class="add-button" data-add="${p.id}">Add to bag +</button></article>`).join('');
+    }
+    function persistCart() { try { localStorage.setItem('openhuman-cart', JSON.stringify(cart)); } catch {} updateCart(); }
+    function updateCart() {
+      document.getElementById('cart-count').textContent = cart.reduce((sum, item) => sum + item.qty, 0);
+      const items = document.getElementById('cart-items');
+      const summary = document.getElementById('cart-summary');
+      if (!cart.length) { items.innerHTML = '<div class="drawer-empty">Your bag is taking a little breather.<br>Find something made with care.</div>'; summary.innerHTML = ''; return; }
+      items.innerHTML = cart.map(item => `<div class="cart-item"><img src="${item.image}" alt=""><div class="cart-item-info"><strong>${item.title}</strong><small>${item.qty} × $${item.price.toFixed(2)}</small><button data-remove="${item.id}">Remove</button></div></div>`).join('');
+      const total = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
+      summary.innerHTML = `<div class="cart-total"><span>Sample subtotal</span><span>$${total.toFixed(2)}</span></div><div class="cart-disclaimer">This is a visual prototype. Checkout, payment, taxes, and shipping are not connected. No order has been placed.</div><button class="button button-primary" style="width:100%" id="checkout-demo">Continue (preview only)</button>`;
+    }
+    let toastTimer;
+    function showToast(message) { const toast = document.getElementById('toast'); toast.textContent = message; toast.classList.add('show'); clearTimeout(toastTimer); toastTimer = setTimeout(() => toast.classList.remove('show'), 2600); }
+    document.querySelectorAll('.chip').forEach(button => button.addEventListener('click', () => { document.querySelector('.chip.active')?.classList.remove('active'); button.classList.add('active'); category = button.dataset.category; renderProducts(); }));
+    search.addEventListener('input', renderProducts);
+    grid.addEventListener('click', event => {
+      const add = event.target.closest('[data-add]');
+      const favorite = event.target.closest('[data-favorite]');
+      if (add) { const product = products.find(p => p.id === Number(add.dataset.add)); const existing = cart.find(item => item.id === product.id); existing ? existing.qty++ : cart.push({...product, qty: 1}); persistCart(); showToast(`${product.title} added to your bag`); }
+      if (favorite) { const saved = favorite.getAttribute('aria-pressed') !== 'true'; favorite.setAttribute('aria-pressed', String(saved)); showToast(saved ? 'Saved for later' : 'Removed from saved pieces'); }
+    });
+    const overlay = document.getElementById('cart-overlay');
+    document.getElementById('cart-open').addEventListener('click', () => overlay.classList.add('open'));
+    document.getElementById('cart-close').addEventListener('click', () => overlay.classList.remove('open'));
+    overlay.addEventListener('click', event => { if (event.target === overlay) overlay.classList.remove('open'); });
+    document.getElementById('cart-items').addEventListener('click', event => { const remove = event.target.closest('[data-remove]'); if (remove) { cart = cart.filter(item => item.id !== Number(remove.dataset.remove)); persistCart(); } });
+    document.getElementById('cart-summary').addEventListener('click', event => { if (event.target.id === 'checkout-demo') showToast('Checkout is not connected in this preview.'); });
+    const modal = document.getElementById('seller-modal');
+    document.querySelectorAll('[data-open-seller]').forEach(button => button.addEventListener('click', () => modal.classList.add('open')));
+    document.getElementById('seller-close').addEventListener('click', () => modal.classList.remove('open'));
+    modal.addEventListener('click', event => { if (event.target === modal) modal.classList.remove('open'); });
+    document.getElementById('seller-form').addEventListener('submit', event => { event.preventDefault(); const data = Object.fromEntries(new FormData(event.currentTarget)); try { localStorage.setItem('openhuman-maker-interest-preview', JSON.stringify(data)); showToast('Saved in this browser only — nothing was sent.'); } catch { showToast('This preview could not save data in this browser.'); } event.currentTarget.reset(); modal.classList.remove('open'); });
+    document.addEventListener('keydown', event => { if (event.key === 'Escape') { overlay.classList.remove('open'); modal.classList.remove('open'); } });
+    renderProducts(); updateCart();
+  </script>
 </body>
 </html>
